@@ -3,3 +3,4 @@ shot-*.png
 portafolio-*.png
 # macOS
 .DS_Store
+.vercel
