@@ -1,0 +1,7 @@
+# Repo-only files: not part of the public site
+DESIGN.md
+guide-foundations.html
+scripts/
+.claude/
+photo/source-linkedin-363.png
+*.md
