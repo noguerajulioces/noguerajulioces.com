@@ -1,4 +1,4 @@
-// Scroll stability check for index.html. Paste into the console at a phone width.
+// Scroll stability check for the portfolio page (/, /es, /pt). Paste into the console at a phone width.
 // Parks the page across every section boundary and reports any place where the page moved on its own
 // (the bug it guards: a script scrolling the page while the visitor scrolls). Resolves to { moved: [] } when clean.
 (async () => {
