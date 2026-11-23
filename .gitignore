@@ -1,0 +1,5 @@
+# Local screenshots made while designing
+shot-*.png
+portafolio-*.png
+# macOS
+.DS_Store

@@ -1,0 +1,170 @@
+/* Julio Noguera portfolio · design tokens. Components use roles only. */
+
+:root {
+  color-scheme: light;
+
+  /* Colour · light: paper and ink, one terracotta accent */
+  --color-bg: #f5f3ee;
+  --color-surface: #fbfaf7;
+  --color-text: #1d1b18;
+  --color-text-muted: #625c53;
+  --color-text-placeholder: #8f887d;
+  --color-text-disabled: #b3ada3;
+  --color-on-dark: #fbfaf7;
+  --color-on-dark-muted: #d9d3c9;
+  --color-fill-1: #eeebe4;
+  --color-fill-2: #e6e2d9;
+  --color-border: #1d1b1824;
+  --color-border-hover: #1d1b1852;
+  --color-divider: #1d1b1814;
+  --color-grid: #1d1b1838;
+  --color-tint-hover-soft: #1d1b1809;
+  --color-tint-hover: #1d1b180f;
+  --color-tint-selected: #1d1b1814;
+  --color-tint-pressed: #1d1b181f;
+  --color-primary: #a8432a;
+  --color-primary-hover: #8f3821;
+  --color-primary-pressed: #792f1b;
+  --color-on-primary: #ffffff;
+  --color-accent-soft: #a8432a1a;
+  --color-focus: #a8432a;
+  --color-live: #a8432a;
+  --color-overlay: #1d1b1866;
+  --color-logo-bg: #ffffff;
+  --shadow: 0 1px 2px #1d1b1810, 0 4px 12px #1d1b180d;
+  --shadow-strong: 0 2px 4px #1d1b1814, 0 12px 32px #1d1b181f;
+
+  /* Type */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-dot: "Doto", var(--font-mono);
+
+  --text-meta: 12px;    --leading-meta: 16px;   /* mono: dates, badges, labels */
+  --text-small: 13px;   --leading-small: 20px;  /* captions, secondary rows */
+  --text-body: 15px;    --leading-body: 24px;   /* paragraphs */
+  --text-lead: 17px;    --leading-lead: 27px;   /* intro paragraph */
+  --text-title: 20px;   --leading-title: 28px;  /* section titles */
+  --text-heading: 26px; --leading-heading: 32px;/* name and chapter titles on phones */
+  --text-display: 34px; --leading-display: 40px;/* name */
+  --text-dot: 40px;     --leading-dot: 40px;    /* clock digits, dot-matrix only */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --tracking-meta: 0.06em;
+  --tracking-display: -0.02em;
+
+  /* Spacing · 4px base, values in use */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px; --space-24: 96px;
+
+  /* Radius */
+  --radius-sm: 4px;   /* badges, kbd */
+  --radius-md: 8px;   /* buttons, chips, logos */
+  --radius-lg: 12px;  /* widgets, menus */
+  --radius-full: 999px;
+
+  /* Component sizes */
+  --size-icon: 14px;
+  --size-control-xs: 28px;  /* index items, icon buttons */
+  --size-control-sm: 32px;  /* chips, primary */
+  --size-logo: 40px;        /* company monogram tile */
+  --size-avatar: 72px;      /* hero monogram */
+  --size-minimap: 132px;    /* corner globe on phones */
+  --size-band: 148px;       /* clock band */
+  --size-band-sm: 120px;    /* clock band on phones */
+  --size-label-col: 112px;  /* stack labels */
+  --size-copy-btn: 124px;   /* copy button keeps its width when the label swaps */
+  --size-topbar: 52px;      /* sticky top bar: index, language, theme */
+
+  /* Layout */
+  --width-column: 640px;
+  --width-index: 168px;
+  --width-page: 1040px;
+  --width-wide: 1280px;     /* full-bleed sections like the journey */
+  --gutter: 16px;
+
+  /* Motion */
+  --duration-quick: 150ms;
+  --duration-fast: 250ms;
+  --duration-medium: 350ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Dark: warm ink, never black + green */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-bg: #16140f;
+    --color-surface: #1d1a15;
+    --color-text: #ece6dc;
+    --color-text-muted: #a59d90;
+    --color-text-placeholder: #7d766b;
+    --color-text-disabled: #5c564d;
+    --color-on-dark: #16140f;
+    --color-on-dark-muted: #3a352e;
+    --color-fill-1: #24211b;
+    --color-fill-2: #2c2821;
+    --color-border: #ece6dc24;
+    --color-border-hover: #ece6dc4d;
+    --color-divider: #ece6dc14;
+    --color-grid: #ece6dc30;
+    --color-tint-hover-soft: #ece6dc08;
+    --color-tint-hover: #ece6dc0f;
+    --color-tint-selected: #ece6dc17;
+    --color-tint-pressed: #ece6dc21;
+    --color-primary: #e27a57;
+    --color-primary-hover: #ea8d6d;
+    --color-primary-pressed: #f0a184;
+    --color-on-primary: #16140f;
+    --color-accent-soft: #e27a5724;
+    --color-focus: #e27a57;
+    --color-live: #e27a57;
+    --color-overlay: #000000a0;
+    --color-logo-bg: #f2ede4;
+    --shadow: 0 1px 2px #00000040, 0 4px 12px #00000033;
+    --shadow-strong: 0 2px 4px #00000059, 0 12px 32px #00000066;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #16140f;
+  --color-surface: #1d1a15;
+  --color-text: #ece6dc;
+  --color-text-muted: #a59d90;
+  --color-text-placeholder: #7d766b;
+  --color-text-disabled: #5c564d;
+  --color-on-dark: #16140f;
+  --color-on-dark-muted: #3a352e;
+  --color-fill-1: #24211b;
+  --color-fill-2: #2c2821;
+  --color-border: #ece6dc24;
+  --color-border-hover: #ece6dc4d;
+  --color-divider: #ece6dc14;
+  --color-grid: #ece6dc30;
+  --color-tint-hover-soft: #ece6dc08;
+  --color-tint-hover: #ece6dc0f;
+  --color-tint-selected: #ece6dc17;
+  --color-tint-pressed: #ece6dc21;
+  --color-primary: #e27a57;
+  --color-primary-hover: #ea8d6d;
+  --color-primary-pressed: #f0a184;
+  --color-on-primary: #16140f;
+  --color-accent-soft: #e27a5724;
+  --color-focus: #e27a57;
+  --color-live: #e27a57;
+  --color-overlay: #000000a0;
+    --color-logo-bg: #f2ede4;
+  --shadow: 0 1px 2px #00000040, 0 4px 12px #00000033;
+  --shadow-strong: 0 2px 4px #00000059, 0 12px 32px #00000066;
+}
+
+/* Touch screens: every control is at least 44px to tap */
+@media (pointer: coarse) {
+  /* The top bar grows with its 44 px controls, keeping 10 px of air above and below them */
+  :root { --size-control-xs: 44px; --size-control-sm: 44px; --size-topbar: 64px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-quick: 0ms; --duration-fast: 0ms; --duration-medium: 0ms; }
+}

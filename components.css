@@ -1,0 +1,75 @@
+/* Shared pieces. States follow guide-foundations.html › Interaction rules. Tokens only. */
+
+.meta { font: var(--weight-regular) var(--text-meta)/var(--leading-meta) var(--font-mono); letter-spacing: var(--tracking-meta); text-transform: uppercase; color: var(--color-text-muted); }
+
+/* Bordered: hover darkens the border only */
+.chip { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: var(--size-control-sm); min-width: var(--size-control-sm); padding: 0 var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); font: var(--weight-medium) var(--text-small)/1 var(--font-sans); text-decoration: none; cursor: pointer; white-space: nowrap; transition: border-color var(--duration-quick) var(--ease), background-color var(--duration-quick) var(--ease); }
+.chip:hover, .chip.is-hover { border-color: var(--color-border-hover); }
+.chip:active, .chip.is-pressed { border-color: var(--color-border-hover); background: var(--color-fill-1); }
+.chip.is-selected, .chip[aria-pressed="true"] { border-color: var(--color-text); }
+.chip[aria-disabled="true"] { color: var(--color-text-disabled); border-color: var(--color-divider); cursor: default; }
+.chip svg { width: var(--size-icon); height: var(--size-icon); flex: none; }
+
+/* Borderless: soft tint on hover, stronger tint + accent dash when selected */
+.ghost { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: var(--size-control-xs); min-width: var(--size-control-xs); padding: 0 var(--space-2); border-radius: var(--radius-sm); color: var(--color-text-muted); font: var(--text-small)/1 var(--font-sans); text-decoration: none; cursor: pointer; border: 0; background: transparent; white-space: nowrap; transition: background-color var(--duration-quick) var(--ease), color var(--duration-quick) var(--ease); }
+.ghost:hover, .ghost.is-hover { background: var(--color-tint-hover-soft); color: var(--color-text); }
+.ghost:active, .ghost.is-pressed { background: var(--color-tint-pressed); }
+.ghost.is-selected, .ghost[aria-current="true"] { color: var(--color-text); background: var(--color-tint-selected); }
+.ghost.is-selected::before, .ghost[aria-current="true"]::before { content: ""; width: var(--space-3); height: 1px; background: var(--color-primary); }
+.ghost[aria-disabled="true"] { color: var(--color-text-disabled); background: transparent; cursor: default; }
+.ghost svg { width: var(--size-icon); height: var(--size-icon); }
+
+/* The one primary action */
+.primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: var(--size-control-sm); padding: 0 var(--space-4); border: 0; border-radius: var(--radius-md); background: var(--color-primary); color: var(--color-on-primary); font: var(--weight-medium) var(--text-small)/1 var(--font-sans); text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color var(--duration-quick) var(--ease); }
+.primary:hover, .primary.is-hover { background: var(--color-primary-hover); }
+.primary:active, .primary.is-pressed { background: var(--color-primary-pressed); }
+.primary[aria-disabled="true"] { background: var(--color-fill-2); color: var(--color-text-disabled); cursor: default; }
+.primary.is-loading { color: transparent; position: relative; }
+.primary.is-loading::after { content: ""; position: absolute; width: var(--size-icon); height: var(--size-icon); border-radius: var(--radius-full); border: 2px solid var(--color-on-primary); border-right-color: transparent; animation: spin 700ms linear infinite; }
+.primary svg { width: var(--size-icon); height: var(--size-icon); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Link inside text */
+.tlink { color: var(--color-primary); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--color-accent-soft); transition: text-decoration-color var(--duration-quick) var(--ease); }
+.tlink:hover, .tlink.is-hover { text-decoration-color: currentColor; }
+
+/* Keyboard focus only */
+:is(.chip, .ghost, .primary, .tlink, summary):focus-visible, .is-focus { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* Live dot: the only thing that pulses */
+.live { display: inline-block; flex: none; width: var(--space-2); height: var(--space-2); border-radius: var(--radius-full); background: var(--color-live); box-shadow: 0 0 0 var(--space-1) var(--color-accent-soft); animation: pulse 2.4s var(--ease) infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 1px var(--color-accent-soft); } }
+@media (prefers-reduced-motion: reduce) { .live { animation: none; } }
+
+/* Dot-matrix type, live widgets only */
+.dot { font-family: var(--font-dot); font-weight: 800; letter-spacing: 0.02em; }
+
+/* City label that follows a point on the globe */
+.globe-label { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; white-space: nowrap; opacity: 0;
+  font: var(--text-meta)/var(--leading-meta) var(--font-mono); letter-spacing: var(--tracking-meta); text-transform: uppercase;
+  color: var(--color-text-muted); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 var(--space-1); }
+.globe-label.is-strong { color: var(--color-primary); border-color: var(--color-primary); }
+
+/* Brand icon inside a tag: the SVG is a mask, so it takes the tag's ink colour */
+.tool-icon { width: 1em; height: 1em; flex: none; background: currentColor; -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat; }
+
+/* Flag beside a language name */
+.flag { height: 1em; width: auto; flex: none; border-radius: calc(var(--radius-sm) / 2); box-shadow: 0 0 0 1px var(--color-border); }
+
+/* Visually hidden, still read by screen readers */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Language menu: a chip with the current flag and code, opening a short list of native names */
+.lang-menu { position: relative; }
+.lang-trigger { gap: var(--space-2); padding: 0 var(--space-2) 0 var(--space-3); font-family: var(--font-mono); font-size: var(--text-meta); }
+.lang-chev { color: var(--color-text-muted); transition: transform var(--duration-quick) var(--ease); }
+.lang-trigger[aria-expanded="true"] .lang-chev { transform: rotate(180deg); }
+.lang-list { position: absolute; top: calc(100% + var(--space-2)); right: 0; z-index: 30; margin: 0; padding: var(--space-1); list-style: none; display: grid; gap: var(--space-1); min-width: var(--width-index);
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.lang-list[hidden] { display: none; }
+.lang-item { display: flex; align-items: center; gap: var(--space-3); width: 100%; height: var(--size-control-sm); padding: 0 var(--space-3); border: 0; border-radius: var(--radius-md);
+  background: transparent; color: var(--color-text-muted); font: var(--text-small)/1 var(--font-sans); text-align: left; cursor: pointer; transition: background-color var(--duration-quick) var(--ease), color var(--duration-quick) var(--ease); }
+.lang-item:hover { background: var(--color-tint-hover-soft); color: var(--color-text); }
+.lang-item:active { background: var(--color-tint-pressed); }
+.lang-item[aria-pressed="true"] { background: var(--color-tint-selected); color: var(--color-text); }
+.lang-item:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }

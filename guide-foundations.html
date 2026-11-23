@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía · Bases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Doto:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css?v=f72e8885">
+<link rel="stylesheet" href="components.css?v=9ddf5845">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font: var(--weight-regular) var(--text-body)/var(--leading-body) var(--font-sans); }
+  main { max-width: var(--width-page); margin: 0 auto; padding: var(--space-12) var(--gutter) var(--space-24); }
+  h1 { font-size: var(--text-display); line-height: var(--leading-display); letter-spacing: var(--tracking-display); font-weight: var(--weight-semibold); margin: 0 0 var(--space-2); }
+  h2 { font-size: var(--text-title); line-height: var(--leading-title); font-weight: var(--weight-semibold); margin: var(--space-16) 0 var(--space-2); }
+  .legend { color: var(--color-text-muted); max-width: 64ch; margin: 0 0 var(--space-6); }
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); border-bottom: 1px dashed var(--color-grid); padding-bottom: var(--space-6); }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); }
+  .swatch { border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); }
+  .swatch i { display: block; height: 56px; border-bottom: 1px solid var(--color-divider); }
+  .swatch div { padding: var(--space-2) var(--space-3); }
+  .swatch b { display: block; font: var(--weight-medium) var(--text-small)/var(--leading-small) var(--font-sans); }
+  .swatch span { font: var(--text-meta)/var(--leading-meta) var(--font-mono); color: var(--color-text-muted); }
+
+  .type-row { display: grid; grid-template-columns: 180px 1fr; gap: var(--space-6); align-items: baseline; padding: var(--space-4) 0; border-top: 1px solid var(--color-divider); }
+  .scale-row { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-2) 0; }
+  .scale-row i { display: block; height: 12px; background: var(--color-primary); border-radius: var(--radius-sm); }
+  .radius-row, .shadow-row { display: flex; gap: var(--space-6); flex-wrap: wrap; }
+  .radius-row div, .shadow-row div { width: 120px; height: 80px; background: var(--color-surface); border: 1px solid var(--color-border); display: grid; place-items: end start; padding: var(--space-2); }
+
+  /* Dotted grid frame, taken from Paras */
+  .frame { position: relative; border-left: 1px dashed var(--color-grid); border-right: 1px dashed var(--color-grid); }
+  .frame::before, .frame::after { content: ""; position: absolute; left: -100vw; right: -100vw; border-top: 1px dashed var(--color-grid); }
+  .frame::before { top: 0; } .frame::after { bottom: 0; }
+  .layout-demo { display: grid; grid-template-columns: var(--width-index) minmax(0, var(--width-column)); gap: var(--space-8); justify-content: center; padding: var(--space-6) 0; overflow: hidden; }
+  .layout-demo > div { height: 120px; border-radius: var(--radius-md); background: var(--color-fill-1); display: grid; place-items: center; }
+
+  .motion-row { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+  .motion-row button { font: inherit; }
+  .runner { width: 100%; height: 8px; background: var(--color-fill-1); border-radius: var(--radius-full); position: relative; margin: var(--space-2) 0 var(--space-4); }
+  .runner i { position: absolute; left: 0; top: 0; width: 8px; height: 8px; border-radius: var(--radius-full); background: var(--color-primary); transition-timing-function: var(--ease); }
+  .runner.go i { left: calc(100% - 8px); }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; min-width: 880px; border-collapse: collapse; }
+  th, td { text-align: left; padding: var(--space-3) var(--space-2); border-top: 1px solid var(--color-divider); vertical-align: middle; }
+  th { font: var(--text-meta)/var(--leading-meta) var(--font-mono); letter-spacing: var(--tracking-meta); text-transform: uppercase; color: var(--color-text-muted); font-weight: var(--weight-regular); }
+  td.rule { color: var(--color-text-muted); font-size: var(--text-small); line-height: var(--leading-small); max-width: 220px; }
+
+  .dot-clock { font: 800 var(--text-dot)/var(--leading-dot) var(--font-dot); letter-spacing: 0.02em; }
+  .write li { margin-bottom: var(--space-2); }
+  .write .no { color: var(--color-text-muted); text-decoration: line-through; text-decoration-color: var(--color-primary); }
+</style>
+</head>
+<body>
+<main>
+  <div class="bar">
+    <div>
+      <div class="meta">Julio Noguera · guía de diseño</div>
+      <h1>Bases</h1>
+    </div>
+    <div style="display:flex;gap:var(--space-2)">
+      <button class="chip" data-set-theme="light">Claro</button>
+      <button class="chip" data-set-theme="dark">Oscuro</button>
+    </div>
+  </div>
+
+  <h2>Color</h2>
+  <p class="legend">Papel y tinta, monocromo, con un solo acento: rojo tierra. El acento va en enlaces, el punto "en vivo", el ítem activo del índice y el mapa. Nunca como fondo de una sección. Todos los textos pasan AA (medido: texto 15.5:1, muted 6.0:1, acento 5.4:1 en claro; acento 6.3:1 en oscuro).</p>
+  <div class="swatches" id="swatches"></div>
+
+  <h2>Tipografía</h2>
+  <p class="legend">Tres familias, cada una con un solo trabajo. Inter para leer. Geist Mono para metadatos (fechas, badges, etiquetas), siempre en mayúsculas con espaciado. Doto, de matriz de puntos, solo dentro de widgets (el reloj y el pasaporte). Nunca en títulos, párrafos ni avatares.</p>
+  <div class="type-row"><span class="meta">display 34/40</span><span style="font:var(--weight-semibold) var(--text-display)/var(--leading-display) var(--font-sans);letter-spacing:var(--tracking-display)">Julio Noguera</span></div>
+  <div class="type-row"><span class="meta">title 20/28</span><span style="font:var(--weight-semibold) var(--text-title)/var(--leading-title) var(--font-sans)">Experience</span></div>
+  <div class="type-row"><span class="meta">lead 17/27</span><span style="font-size:var(--text-lead);line-height:var(--leading-lead)">Independent Ruby on Rails engineer. I help startups ship and scale their backends.</span></div>
+  <div class="type-row"><span class="meta">body 15/24</span><span>Five years building Rails apps for teams in Norway, the US, Colombia and Europe: geolocation, ERPs, race timing and APIs for mobile apps.</span></div>
+  <div class="type-row"><span class="meta">small 13/20</span><span style="font-size:var(--text-small);line-height:var(--leading-small);color:var(--color-text-muted)">Oslo, Norway · Remote</span></div>
+  <div class="type-row"><span class="meta">meta 12/16 mono</span><span class="meta">Jul 2023 — Present</span></div>
+  <div class="type-row"><span class="meta">dot 40 · widgets</span><span class="dot-clock">20:13</span></div>
+
+  <h2>Espacio</h2>
+  <p class="legend">Base de 4 px. Estos son los valores en uso, no todos los múltiplos.</p>
+  <div id="spaces"></div>
+
+  <h2>Radio</h2>
+  <p class="legend">Esquinas chicas: la página es sobria. El radio completo solo para el punto en vivo y avatares.</p>
+  <div class="radius-row">
+    <div style="border-radius:var(--radius-sm)"><span class="meta">sm 4</span></div>
+    <div style="border-radius:var(--radius-md)"><span class="meta">md 8</span></div>
+    <div style="border-radius:var(--radius-lg)"><span class="meta">lg 12</span></div>
+    <div style="border-radius:var(--radius-full);width:80px"><span class="meta">full</span></div>
+  </div>
+
+  <h2>Sombras</h2>
+  <p class="legend">Dos fuerzas, solo en piezas flotantes: el menú de idioma y el índice móvil. Las filas y widgets van con borde, no con sombra.</p>
+  <div class="shadow-row">
+    <div style="box-shadow:var(--shadow);border-color:transparent;border-radius:var(--radius-lg)"><span class="meta">shadow</span></div>
+    <div style="box-shadow:var(--shadow-strong);border-color:transparent;border-radius:var(--radius-lg)"><span class="meta">shadow-strong</span></div>
+  </div>
+
+  <h2>Layout</h2>
+  <p class="legend">Como Paras: una columna de lectura de 640 px enmarcada por líneas punteadas, con un índice fijo de 168 px. En teléfono el índice pasa a una barra arriba y quedan 16 px de margen.</p>
+  <div class="frame"><div class="layout-demo"><div class="meta">índice 168</div><div class="meta">columna 640</div></div></div>
+
+  <h2>Movimiento</h2>
+  <p class="legend">Corto y con función: abrir una fila, cambiar de idioma, el segundero del reloj. Una sola curva. Abrir es más lento que cerrar. Con "reducir movimiento" activado, todo es instantáneo.</p>
+  <div id="motion"></div>
+
+  <h2>Reglas de interacción</h2>
+  <p class="legend">Se definen una vez y todas las piezas las siguen. Pasá el mouse, hacé clic o navegá con Tab para probarlas en vivo; las columnas muestran cada estado forzado.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Pieza</th><th>Normal</th><th>Hover</th><th>Pressed</th><th>Focus (teclado)</th><th>Selected</th><th>Disabled</th><th>Loading</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Con borde</b><br><span class="meta">chips, redes, idioma</span></td>
+        <td><a class="chip" href="#">LinkedIn</a></td>
+        <td><a class="chip is-hover" href="#">LinkedIn</a></td>
+        <td><a class="chip is-pressed" href="#">LinkedIn</a></td>
+        <td><a class="chip is-focus" href="#">LinkedIn</a></td>
+        <td><a class="chip is-selected" href="#">EN</a></td>
+        <td><a class="chip" aria-disabled="true">LinkedIn</a></td>
+        <td class="rule">No aplica</td>
+      </tr>
+      <tr><td></td><td colspan="7" class="rule">Hover solo oscurece el borde. Seleccionado: borde en tinta, mismo peso de letra.</td></tr>
+      <tr>
+        <td><b>Sin borde</b><br><span class="meta">índice, filas</span></td>
+        <td><a class="ghost" href="#">Experience</a></td>
+        <td><a class="ghost is-hover" href="#">Experience</a></td>
+        <td><a class="ghost is-pressed" href="#">Experience</a></td>
+        <td><a class="ghost is-focus" href="#">Experience</a></td>
+        <td><a class="ghost is-selected" href="#">Experience</a></td>
+        <td><a class="ghost" aria-disabled="true">Experience</a></td>
+        <td class="rule">No aplica</td>
+      </tr>
+      <tr><td></td><td colspan="7" class="rule">Hover con tinte suave, más sutil que seleccionado. Seleccionado: texto en tinta y raya terracota, como el índice de Paras.</td></tr>
+      <tr>
+        <td><b>Acción primaria</b><br><span class="meta">una por página</span></td>
+        <td><button class="primary">Get in touch</button></td>
+        <td><button class="primary is-hover">Get in touch</button></td>
+        <td><button class="primary is-pressed">Get in touch</button></td>
+        <td><button class="primary is-focus">Get in touch</button></td>
+        <td class="rule">No aplica</td>
+        <td><button class="primary" aria-disabled="true">Get in touch</button></td>
+        <td><button class="primary is-loading" aria-busy="true">Get in touch</button></td>
+      </tr>
+      <tr><td></td><td colspan="7" class="rule">Cada estado oscurece un paso. Loading mantiene el tamaño exacto. Es la única pieza con fondo de acento.</td></tr>
+      <tr>
+        <td><b>Enlace en texto</b></td>
+        <td><a class="tlink" href="#">RaceTracker</a></td>
+        <td><a class="tlink is-hover" href="#">RaceTracker</a></td>
+        <td class="rule">Igual que hover</td>
+        <td><a class="tlink is-focus" href="#">RaceTracker</a></td>
+        <td class="rule">No aplica</td>
+        <td class="rule">No aplica</td>
+        <td class="rule">No aplica</td>
+      </tr>
+      <tr><td></td><td colspan="7" class="rule">Subrayado suave que se vuelve pleno en hover. El anillo de foco aparece solo con teclado, nunca después de un clic.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Detalle vivo</h2>
+  <p class="legend">El punto "en vivo" marca lo que pasa ahora (clientes actuales, hora local). Es el único elemento que late, y deja de hacerlo con "reducir movimiento".</p>
+  <p><span class="live"></span>&nbsp;&nbsp;<span class="meta">Now · Asunción</span></p>
+
+  <h2>Cómo escribimos</h2>
+  <ul class="write legend">
+    <li>Primera persona, frases cortas. "I build Rails backends for startups." <span class="no">"Passionate results-driven developer"</span></li>
+    <li>Hechos antes que adjetivos: empresa, país, qué construiste, con qué.</li>
+    <li>Fechas en mono: "Jul 2023 — Present". Lugares como "Oslo, Norway · Remote".</li>
+    <li>Nada de barras de habilidad en porcentaje ni emojis de saludo.</li>
+    <li>El guaraní aparece una vez, con traducción al lado, como algo personal y no como decoración.</li>
+  </ul>
+</main>
+<script>
+  const qt = new URLSearchParams(location.search).get("theme"); if (qt) document.documentElement.dataset.theme = qt;
+  const roles = ["bg","surface","text","text-muted","text-placeholder","text-disabled","fill-1","fill-2","border","border-hover","divider","grid","tint-hover-soft","tint-selected","primary","primary-hover","primary-pressed","accent-soft","focus","live"];
+  const sw = document.getElementById("swatches");
+  function paintSwatches() {
+    const cs = getComputedStyle(document.documentElement);
+    sw.innerHTML = roles.map(r => `<div class="swatch"><i style="background:var(--color-${r})"></i><div><b>${r}</b><span>${cs.getPropertyValue("--color-" + r).trim()}</span></div></div>`).join("");
+  }
+  paintSwatches();
+  document.querySelectorAll("[data-set-theme]").forEach(b => b.addEventListener("click", () => {
+    document.documentElement.dataset.theme = b.dataset.setTheme; paintSwatches();
+  }));
+  document.getElementById("spaces").innerHTML = [1,2,3,4,6,8,12,16,24].map(n => `<div class="scale-row"><span class="meta" style="width:110px">space-${n} · ${n*4}</span><i style="width:var(--space-${n})"></i></div>`).join("");
+  document.getElementById("motion").innerHTML = ["quick","fast","medium"].map(d => `<span class="meta">${d} · ${getComputedStyle(document.documentElement).getPropertyValue("--duration-" + d).trim()}</span><div class="runner" data-d="${d}"><i style="transition-property:left;transition-duration:var(--duration-${d})"></i></div>`).join("") + `<button class="chip" id="play">Reproducir</button>`;
+  document.getElementById("play").addEventListener("click", () => document.querySelectorAll(".runner").forEach(r => r.classList.toggle("go")));
+  document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener("click", e => e.preventDefault()));
+</script>
+</body>
+</html>
