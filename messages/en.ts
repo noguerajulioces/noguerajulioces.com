@@ -27,7 +27,7 @@ export const en = {
     cities: ["New York", "Berlin"],
   },
   hero: {
-    role: "Independent Software Engineer",
+    role: "Software Engineer",
     country: "Paraguay",
     lead: "I build and scale Rails backends for startups.",
     experience: "10 years shipping software, 7+ of them in production Rails, for teams in Norway, the US, Colombia and Argentina.",

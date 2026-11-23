@@ -67,6 +67,7 @@
 
   /* Component sizes */
   --size-icon: 14px;
+  --size-mark: 24px;        /* jn mark in the top bar */
   --size-control-xs: 28px;  /* index items, icon buttons */
   --size-control-sm: 32px;  /* chips, primary */
   --size-logo: 40px;        /* company monogram tile */

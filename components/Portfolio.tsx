@@ -8,6 +8,7 @@ import { Clock } from "./Clock";
 import { CopyEmail } from "./CopyEmail";
 import { CompanyLogo, Journey } from "./Journey";
 import { LanguageMenu } from "./LanguageMenu";
+import { Mark } from "./Mark";
 import { PageField } from "./PageField";
 import { PrintRows } from "./PrintRows";
 import { SectionIndex } from "./SectionIndex";
@@ -31,7 +32,7 @@ export function Portfolio({ locale }: { locale: Locale }) {
   return (
     <>
       <header className="topbar">
-        <a className="brand" href="#top"><span className="meta">{site.initials}</span>{` ${site.name}`}</a>
+        <a className="brand" href="#top" aria-label={site.name}><Mark className="brand-mark" /></a>
         <SectionIndex label={m.nav.label} links={index} />
         <div className="controls">
           <LanguageMenu locale={locale} label={m.controls.language} />

@@ -27,7 +27,7 @@ export const es: Messages = {
     cities: ["Nueva York", "Berlín"],
   },
   hero: {
-    role: "Ingeniero de software independiente",
+    role: "Ingeniero de software",
     country: "Paraguay",
     lead: "Construyo y escalo backends en Rails para startups.",
     experience: "10 años entregando software, más de 7 en Rails en producción, para equipos en Noruega, Estados Unidos, Colombia y Argentina.",

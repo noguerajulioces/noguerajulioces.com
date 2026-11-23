@@ -1,0 +1,12 @@
+{
+  "_comment": "The jn mark on a 32-unit grid: j and n stroked 3 units wide, dot on the j in the accent. Read by components/Mark.tsx and scripts/make_favicons.py; rerun the script after changing it.",
+  "viewBox": "0 0 32 32",
+  "centre": "translate(0.25 -0.7)",
+  "stroke": 3,
+  "strokes": "M11.5 10.5V24A3.5 3.5 0 0 1 4.5 24M18 10.5V22M18 16.5A4.5 4.5 0 0 1 27 16.5V22",
+  "dot": {
+    "cx": 11.5,
+    "cy": 6.3,
+    "r": 2.4
+  }
+}
