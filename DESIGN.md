@@ -4,7 +4,7 @@
 
 ## Product
 Personal portfolio of Julio Noguera, independent software engineer from Paraguay (Rails specialist), for noguerajulioces.com.
-One static page. Read by recruiters and founders on a laptop during a quick scan, and on phones from links shared in X, LinkedIn and Instagram.
+One page in three languages (/ English, /es, /pt), prerendered as static HTML by Next.js. Read by recruiters and founders on a laptop during a quick scan, and on phones from links shared in X, LinkedIn and Instagram.
 Main job: in 10 seconds, know who Julio is (software engineer, 10+ years, Rails specialist, startups), who he works with today, and how to contact him. Then, for whoever keeps scrolling, his career told on a globe.
 
 Content, in order (sticky top bar: index, language, theme):
@@ -18,7 +18,7 @@ Content, in order (sticky top bar: index, language, theme):
 ## Audience and voice
 Technical recruiters (Europe, DACH), startup founders and CTOs looking for a Rails contractor. Technical but scanning fast.
 Voice: first person, short, plain, confident without hype. No buzzwords.
-Language: English by default, with an EN · ES · PT switch that translates the whole page. One Guaraní line as a personal detail.
+Language: English by default, with an EN · ES · PT switch that opens the same page in the other language (/, /es, /pt). One Guaraní line as a personal detail.
 Formats: dates "Jul 2023 – Present", city + country.
 
 ## Mood
@@ -30,8 +30,8 @@ No existing logo, tokens or design files.
 - Base: monochrome, near-white paper and near-black ink, like Paras.
 - Accent: terracotta red, "tierra colorada" of Itapúa, also nods to Ruby. Used sparingly (links, live dot, active index item, the map).
 - Type: Inter for text, Geist Mono for metadata like dates and badges, Doto (dot-matrix) only inside widgets: the clock and the passport. Approved with the foundations.
-- Files: tokens.css (roles), components.css (shared pieces), guide-foundations.html (guide + states matrix), index.html (the page), globe.js (the dotted globe, driven by a state object), journey.js (chapter → globe), field.js (character field behind the whole page + click ripple), logos/, icons/ (Simple Icons, CC0), flags/ (flag-icons, MIT), scripts/assets.py (Stack registry → icons + Stack block; rerun after editing the registry).
-- Photo: warm-mono version of Julio's LinkedIn photo (photo/photo-warm-mono-144.webp and -288.webp, ink-to-paper tone), chosen over natural colour and a dot halftone; falls back to the "JN" monogram if it fails to load. Rebuild with scripts/make_photos.py from photo/source-linkedin-363.png (LinkedIn's largest copy is 363 px, so a sharper source would help).
+- Files: styles/tokens.css (roles), styles/components.css (shared pieces), styles/page.css (the page; responsive overrides last), design/guide-foundations.html (guide + states matrix), messages/en.ts (every word, the source of truth) with es.ts and pt.ts typed against it, data/journey.ts (chapters and roles), data/stack.ts (Stack registry), data/site.ts (email, socials, photo), lib/i18n.ts (locales), lib/fonts.ts (next/font), app/(en) and app/(intl)/[locale] (the routes), components/ (Portfolio and Journey render on the server; Clock, ThemeToggle, LanguageMenu, CopyEmail, SectionIndex, PrintRows, Tile, JourneyStage are small client islands), components/globe.ts (the dotted globe, driven by a state object), components/JourneyGlobe.tsx (chapter → globe), components/PageField.tsx (character field behind the whole page + click ripple), public/logos/, public/icons/ (Simple Icons, CC0), public/flags/ (flag-icons, MIT), app/icon.svg (the JN tile), scripts/assets.py (fetches the icons named in data/stack.ts and the flags).
+- Photo: warm-mono version of Julio's LinkedIn photo (public/photo/photo-warm-mono-144.webp and -288.webp, ink-to-paper tone), chosen over natural colour and a dot halftone; falls back to the "JN" monogram if it fails to load. Rebuild with scripts/make_photos.py from design/source-linkedin-363.png (LinkedIn's largest copy is 363 px, so a sharper source would help).
 
 ## References
 - parascodes.is-a.dev — take: single narrow column, dotted grid lines, sticky side index, experience rows with logo + badge (Remote / Part-time) and expandable details; avoid: the long list of sections nobody reads (Anime, Guestbook).
@@ -40,11 +40,12 @@ No existing logo, tokens or design files.
 - wallofportfolios.in/portfolios/yuvraj-singh — not taken (letter metaphor declined).
 
 ## Constraints
-- Laptop (1280 px) first, phone (375 px) must work: on phones the globe is a 132 px corner mini map that appears only inside the journey, ignores touches and never covers more than 16% of the screen. Run scripts/mobile-audit.js at 375 px and 324 px before shipping: it must report no overflow, no tap target under 44 px, no text under 12 px, no title over 3 lines, no globe label off screen. Then run scripts/scroll-stability.js: the page must never move on its own. After editing any CSS or JS, run python3 -I scripts/version-assets.py so every reference carries a content hash (?v=) and no browser keeps an old copy. Preview with scripts/serve.py (sends Cache-Control: no-cache).
+- Laptop (1280 px) first, phone (375 px) must work: on phones the globe is a 132 px corner mini map that appears only inside the journey, ignores touches and never covers more than 16% of the screen. Run scripts/mobile-audit.js at 375 px and 324 px before shipping: it must report no overflow, no tap target under 44 px, no text under 12 px, no title over 3 lines, no globe label off screen. Then run scripts/scroll-stability.js: the page must never move on its own. Preview with npm run dev (localhost:3000); Next.js fingerprints CSS and JS, so no browser keeps an old copy.
 - Light theme default, dark theme toggle (assumed). Dark stays warm ink, never black + green.
 - WCAG AA contrast; terracotta on paper must pass for text sizes it is used at.
 - Motion: one strong moment, the journey globe (turns and draws arcs as chapters change); everything else small and functional. With prefers-reduced-motion the globe jumps between places without animating.
-- Static HTML/CSS/JS, no build step, deployable to any static host. Runtime deps from CDNs: GSAP 3.12.5 + ScrollTrigger (cdnjs), Three.js 0.160, topojson-client, d3-geo, world-atlas land-110m (jsdelivr). If WebGL or a CDN fails, the chapters show in one column without the globe.
+- Next.js 16 App Router, TypeScript, plain global CSS (no Tailwind, no CSS-in-JS). npm run build must pass with no type or lint errors (npm run lint) and prerender /, /es and /pt as static HTML; every language must read in full with JavaScript off. Server components by default; a client island only where the page needs the browser. Runtime deps are npm packages pinned to the versions the CDN page used: GSAP 3.12.5 + ScrollTrigger, Three.js 0.160.0, topojson-client 3.1.0, d3-geo 3.1.0, world-atlas 2.0.2 land-110m; the globe loads only in the browser (next/dynamic, ssr: false). If WebGL fails, the chapters show in one column without the globe.
+- Fonts come from next/font/google and must stay the same files Google Fonts serves; Inter loads as a variable font because a weight list makes Turbopack slice its axis and shift glyphs.
 
 ## Decisions log
 - 2026-11-22 — RaceTracker and Luxus shown as clients under one "Independent" role — Julio wants to sell himself as an independent engineer.
@@ -95,5 +96,12 @@ No existing logo, tokens or design files.
 - 2026-11-22 — Stack gains an "AI" row (Claude Code, ChatGPT, Grok) — shows a modern workflow without claiming an AI Engineer title.
 - 2026-11-22 — "10+ years shipping software, most of it in Ruby on Rails" — Julio has worked since 2016; the old "5+" undersold it.
 
+- 2026-11-23 — Moved from one static index.html to Next.js 16 (App Router, TypeScript), as a port: the page looks and behaves the same — the site needs room for more pages (case studies), and each language should be its own server-rendered URL for search. Languages are routes: / English, /es, /pt, prerendered with their own html lang, title, description, OpenGraph and hreflang. The flag menu links to the same page in the other language and keeps the #section; the URL is the only source of the language (no saved choice, no ?lang=), and ?theme= is gone (toggle + localStorage + system preference, still no flash). Every word moved to messages/ (en.ts the source of truth, es.ts and pt.ts typed against it, so a missing string fails the build); facts moved to data/. globe.js, journey.js and field.js are ported as-is into client components; everything else renders on the server. Checked against the old page: 0 of 80 screenshots differ (1280x900 and 500x1600, light and dark, EN and ES, character field hidden because its glyphs are random), font files byte-identical to Google's, mobile audit 0 findings and scroll stability 0 of 30 at 375 and 324 px in all three languages, /es and /pt fully translated with JavaScript off, no console errors.
+- 2026-11-23 — Added with the migration: a favicon made from the page's JN tile (app/icon.svg; the browser's favicon request was the only console error), and translations for strings that were English on every page: the page title and description, the labels only screen readers and tooltips read (Sections, Language, Switch theme, the clock's label) and the clock's no-JavaScript line.
+
 ## Open questions
 - English level label: "Fluent" or "Professional"? (assumed "Professional")
+- The new translations (page titles and descriptions, the screen-reader labels, the clock's no-JavaScript line in messages/es.ts and pt.ts) need Julio's read.
+- Spanish and Portuguese still show some English, kept from the old page: role titles (Backend Developer, Ruby on Rails Engineer, Software Engineer), the Stack title and its Backend, Frontend and Cloud · DevOps labels, the Freelance badge. Translate them?
+- Switching language now opens the other page at the top, or at the #section in the address; the old in-place switch kept the scroll position. Restore the scroll position too?
+- Favicon: keep the JN tile or replace it?
