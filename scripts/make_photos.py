@@ -3,8 +3,8 @@
 Pure Python (no PIL/numpy here); ffmpeg does decode, crop, resample and PNG
 encode, cwebp does WebP, headless Chrome renders compare.png.
 
-Usage (from the project root): python3 -I scripts/make_photos.py photo/source-linkedin-363.png <out_dir>
-The page uses photo/photo-warm-mono-144.webp and photo/photo-warm-mono-288.webp; the other versions are rebuilt on demand.
+Usage (from the project root): python3 -I scripts/make_photos.py design/source-linkedin-363.png <out_dir>
+The page uses public/photo/photo-warm-mono-144.webp and public/photo/photo-warm-mono-288.webp; the other versions are rebuilt on demand.
 """
 import math
 import os

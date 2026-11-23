@@ -1,4 +1,4 @@
-// Mobile audit for index.html. Paste into the console (or run through a browser tool) at a phone width.
+// Mobile audit for the portfolio page (/, /es, /pt). Paste into the console (or run through a browser tool) at a phone width.
 // Returns { viewport, findings: [{ kind, el, detail }] }. Same instrument before and after a fix.
 (() => {
   const W = document.documentElement.clientWidth, H = innerHeight;

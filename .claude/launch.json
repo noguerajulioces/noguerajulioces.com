@@ -3,13 +3,12 @@
   "configurations": [
     {
       "name": "portfolio",
-      "runtimeExecutable": "python3",
+      "runtimeExecutable": "npm",
       "runtimeArgs": [
-        "-I",
-        "scripts/serve.py",
-        "4173"
+        "run",
+        "dev"
       ],
-      "port": 4173
+      "port": 3000
     }
   ]
 }
